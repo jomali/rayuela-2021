@@ -31,7 +31,7 @@ echo "============================================="
 echo "COMPILANDO PARA GLULX…"
 echo "---------------------------------------------"
 $inform_compiler +include_path=$inform_path -G $gameFile.inf $gameFile.ulx
-python $game2js --giload $gameFile.ulx > ../web/stories/$gameFile.ulx.js
+python $game2js --giload $gameFile.ulx > ../stories/$gameFile.ulx.js
 rm $gameFile.ulx
 
 exit 0;

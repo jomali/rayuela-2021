@@ -1,6 +1,10 @@
 # Rayuela de Arena 2021
 
-Una ficción interactiva con analizador de comandos, creada con Inform 6.
+Un tutorial sobre creación de ficción interactiva con analizador de comandos en Inform 6.
+
+[Iniciar aplicación online.](https://jomali.github.io/rayuela-2021/)
+
+1. [Creación de ficción interactiva con Inform 6 (I)](https://interlecturas.blogspot.com/2021/04/creacion-de-ficcion-interactiva-con.html)
 
 
 ### Licencia
