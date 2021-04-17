@@ -1,0 +1,226 @@
+!% -Cu
+!% -D
+!% -S
+!% -s
+
+!!==============================================================================
+!!
+!!	RAYUELA DE ARENA 2021
+!!
+!!==============================================================================
+!!
+!!	Archivo:		rayuela21.inf
+!!	Autor(es):		J. Francisco Martín <jfm.lisaso@gmail.com>
+!!	Idioma:			EN (Inglés)
+!!	Sistema:		Inform 6
+!!	Plataforma:		Máquina-Z/Glulx
+!!	Versión:		0.0
+!!	Fecha:			2021/04/17
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	Este programa es software libre: usted puede redistribuirlo
+!!	y/o modificarlo bajo los términos de la Licencia Pública General 
+!!	GNU publicada por la Fundación para el Software Libre, ya sea la 
+!!	versión 3 de la Licencia, o (a su elección) cualquier versión 
+!!	posterior.
+!!
+!!	Este programa se distribuye con la esperanza de que sea útil, 
+!!	pero SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+!!	MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. Consulte 
+!!	los detalles de la Licencia Pública General GNU para más 
+!!	información.
+!!
+!!	Debería haber recibido una copia de la Licencia Pública General 
+!!	GNU junto a este programa. En caso contrario, consulte 
+!!	http://www.gnu.org/licenses/.
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	HISTORIAL DE VERSIONES
+!!
+!!	1.0: 2021/04/17	Esqueleto básico.
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	TABLA DE CONTENIDOS
+!!
+!!	1)	Constantes y variables globales de la obra
+!!	2)	Reemplazos de rutinas por defecto
+!!	3)	Librerías y extensiones (parte 1 de 2)
+!!	4)	Puntos de entrada Glk
+!!	5)	Librerías y extensiones (parte 2 de 2)
+!!	6)	Puntos de entrada de la librería Inform y del resto de extensiones
+!!	7)	Gramática estándar y extendida
+!!	8)	Definición de atributos, clases y objetos
+!!
+!!------------------------------------------------------------------------------
+
+
+!!==============================================================================
+!!
+!!	1)	Constantes y variables globales de la obra
+!!
+!!------------------------------------------------------------------------------
+!!	<>	Información bibliográfica
+!!	<>	Definiciones de la librería Inform
+!!------------------------------------------------------------------------------
+
+!!------------------------------------------------------------------------------
+!!	Información bibliográfica
+!!------------------------------------------------------------------------------
+
+Constant Story
+"Rayuela de Arena 2021";
+
+Constant Headline
+"^Tutorial de creación de ficción interactiva con Inform 6. Escrito por J. Francisco Martín y publicado bajo la Licencia Pública General de GNU en su versión 3 (o cualquier versión posterior).^";
+
+Release 1; Serial "210417";
+
+!!------------------------------------------------------------------------------
+!!	Definiciones de la librería Inform
+!!------------------------------------------------------------------------------
+
+!! Los pronombres sólo refieren a objetos ya mencionados:
+Constant MANUAL_PRONOUNS;
+
+!! Acciones LUGARES y OBJETOS desactivadas:
+Constant NO_PLACES;
+
+!! No se lleva conteo de puntuación:
+Constant NO_SCORE;
+
+
+!!==============================================================================
+!!
+!!	2)	Reemplazos de rutinas por defecto
+!!
+!!------------------------------------------------------------------------------
+
+
+!!==============================================================================
+!!
+!!	3)	Librerías y extensiones (parte 1 de 2)
+!!
+!!------------------------------------------------------------------------------
+
+!! Decodifica la entrada del teclado:
+Include "Parser.h";
+
+
+!!==============================================================================
+!!
+!!	4)	Puntos de entrada Glk
+!!
+!!------------------------------------------------------------------------------
+
+
+!!==============================================================================
+!!
+!!	5)	Librerías y extensiones (parte 2 de 2)
+!!
+!!------------------------------------------------------------------------------
+
+!! Define cómo trabajan las acciones:
+Include "VerbLib.h";
+
+
+!!==============================================================================
+!!
+!!	6)	Puntos de entrada de la librería Inform y del resto de extensiones
+!!
+!!------------------------------------------------------------------------------
+!!	<>	Initialise()
+!!	<>	InScope()
+!!------------------------------------------------------------------------------
+
+!!------------------------------------------------------------------------------
+!! Inicializaciones del relato. Esta rutina es obligatoria y, entre otras
+!! posibles inicializaciones, DEBE ESTABLECER LA LOCALIDAD INICIAL del usuario
+!! (o el objeto accesible —contenedor o soporte— en el que empieza).
+!!
+!!	@returns {boolean|integer} Verdadero o falso para continuar con la
+!!		ejecución normal de la aplicación, o 2 para suprimir la impresión de
+!!		los créditos, que de otra manera se imprimirían inmediatamente después
+!!		de llamar a la rutina
+!!	@version 2021/04/17
+!!------------------------------------------------------------------------------
+[ Initialise;
+	!! Inicializaciones de la obra ---------------------------------------------
+
+	!! Lookmode largo:
+	lookmode = 2;
+
+	!! Localidad inicial:
+	location = SalaEspera;
+
+	return true;
+];
+
+!!------------------------------------------------------------------------------
+!! Definición del foco del usuario; permite cambiar en el sistema la definición
+!! de lo que se encuentra al alcance del PC. Utiliza las rutinas de la librería
+!! 'ScopeWithin()' y 'PlaceInScope()' para establecer cuál debería ser el foco.
+!!
+!!	@returns {boolean} Falso para indicar al sistema que añada todos los
+!!		objetos que suelen estar por defecto al alcance, o verdadero para
+!!		indicar que no se debe añadir nada más al alcance
+!!	@version 2021/04/17
+!!------------------------------------------------------------------------------
+[ InScope person
+	item;
+	!! Aseguramos que la localidad actual está siempre en el foco del PJ:
+	PlaceInScope(real_location);
+	!! En la oscuridad, se mueven al foco todos aquellos objetos que hayan sido
+	!! manipulados ya previamente por el PC:
+	if ((person == player) && (location == thedark)) {
+		objectloop(item in parent(self))
+			if (item has moved) PlaceInScope(item);
+	}
+
+	return false;
+];
+
+
+!!==============================================================================
+!!
+!!	7)	Gramática estándar y extendida
+!!
+!!------------------------------------------------------------------------------
+
+!! Gramática inglesa por defecto:
+Include "Grammar.h";
+
+
+!!==============================================================================
+!!
+!!	8)	Definición de atributos, clases y objetos
+!!
+!!------------------------------------------------------------------------------
+
+!! @SalaEspera
+Object SalaEspera "Sala de espera"
+	has
+		female light,
+	with
+		description [;
+			print "Estás en una sencilla sala de espera sin ventanas. Las paredes pintadas en un relajante color crema.";
+			new_line;
+			return true;
+		],
+;
+
+!! @Caramelo
+Object -> Caramelo "caramelo"
+	has
+		edible male,
+	with
+		name 'caramelo' 'dulce',
+		!!
+		description [;
+			print "Un caramelo de limón.";
+			new_line;
+			return true;
+		],
+;
