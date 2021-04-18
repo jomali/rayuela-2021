@@ -5,6 +5,7 @@ Un tutorial sobre creación de ficción interactiva con analizador de comandos e
 [Iniciar aplicación online.](https://jomali.github.io/rayuela-2021/)
 
 1. [Creación de ficción interactiva con Inform 6 (I)](https://interlecturas.blogspot.com/2021/04/creacion-de-ficcion-interactiva-con.html)
+2. [Creación de ficción interactiva con Inform 6 (II)](https://interlecturas.blogspot.com/2021/04/creacion-de-ficcion-interactiva-con_18.html)
 
 
 ### Licencia
