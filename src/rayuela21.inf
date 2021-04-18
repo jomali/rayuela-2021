@@ -2,6 +2,7 @@
 !% -D
 !% -S
 !% -s
+!% +language_name=Spanish
 
 !!==============================================================================
 !!
@@ -11,11 +12,11 @@
 !!
 !!	Archivo:		rayuela21.inf
 !!	Autor(es):		J. Francisco Martín <jfm.lisaso@gmail.com>
-!!	Idioma:			EN (Inglés)
+!!	Idioma:			ES (Español)
 !!	Sistema:		Inform 6
 !!	Plataforma:		Máquina-Z/Glulx
-!!	Versión:		0.0
-!!	Fecha:			2021/04/17
+!!	Versión:		2.0
+!!	Fecha:			2021/04/18
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -40,6 +41,7 @@
 !!	HISTORIAL DE VERSIONES
 !!
 !!	1.0: 2021/04/17	Esqueleto básico.
+!!	2.0: 2021/04/18	Módulo de idioma español.
 !!
 !!------------------------------------------------------------------------------
 !!
@@ -76,7 +78,7 @@ Constant Story
 Constant Headline
 "^Tutorial de creación de ficción interactiva con Inform 6. Escrito por J. Francisco Martín y publicado bajo la Licencia Pública General de GNU en su versión 3 (o cualquier versión posterior).^";
 
-Release 1; Serial "210417";
+Release 2; Serial "210418";
 
 !!------------------------------------------------------------------------------
 !!	Definiciones de la librería Inform
@@ -189,8 +191,8 @@ Include "VerbLib.h";
 !!
 !!------------------------------------------------------------------------------
 
-!! Gramática inglesa por defecto:
-Include "Grammar.h";
+!! Gramática española por defecto:
+Include "SpanishG.h";
 
 
 !!==============================================================================
@@ -199,28 +201,5 @@ Include "Grammar.h";
 !!
 !!------------------------------------------------------------------------------
 
-!! @SalaEspera
-Object SalaEspera "Sala de espera"
-	has
-		female light,
-	with
-		description [;
-			print "Estás en una sencilla sala de espera sin ventanas. Las paredes pintadas en un relajante color crema.";
-			new_line;
-			return true;
-		],
-;
-
-!! @Caramelo
-Object -> Caramelo "caramelo"
-	has
-		edible male,
-	with
-		name 'caramelo' 'dulce',
-		!!
-		description [;
-			print "Un caramelo de limón.";
-			new_line;
-			return true;
-		],
-;
+Include ">rayuela21Classes.inf";
+Include ">rayuela21Objects.inf";

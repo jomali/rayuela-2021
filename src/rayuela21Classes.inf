@@ -1,0 +1,135 @@
+
+
+!!==============================================================================
+!!
+!!	RAYUELA DE ARENA 2021
+!!	Definición de clases y atributos
+!!
+!!==============================================================================
+!!
+!!	Archivo:		rayuela21.inf
+!!	Autor(es):		J. Francisco Martín <jfm.lisaso@gmail.com>
+!!	Idioma:			ES (Español)
+!!	Sistema:		Inform 6
+!!	Plataforma:		Máquina-Z/Glulx
+!!	Versión:		2.0
+!!	Fecha:			2021/04/18
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	Este programa es software libre: usted puede redistribuirlo
+!!	y/o modificarlo bajo los términos de la Licencia Pública General 
+!!	GNU publicada por la Fundación para el Software Libre, ya sea la 
+!!	versión 3 de la Licencia, o (a su elección) cualquier versión 
+!!	posterior.
+!!
+!!	Este programa se distribuye con la esperanza de que sea útil, 
+!!	pero SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+!!	MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. Consulte 
+!!	los detalles de la Licencia Pública General GNU para más 
+!!	información.
+!!
+!!	Debería haber recibido una copia de la Licencia Pública General 
+!!	GNU junto a este programa. En caso contrario, consulte 
+!!	http://www.gnu.org/licenses/.
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	TABLA DE CONTENIDOS
+!!
+!!	<>	Room
+!!	<>	Room:Indoors
+!!	<>	Room:Outdoors
+!!	<>	Candy
+!!
+!!------------------------------------------------------------------------------
+!!
+!!	NOTA SOBRE LAS PROPIEDADES DE CLASE
+!!
+!!	Hay rutinas como 'before' o 'react_before' que son propiedades no aditivas,
+!!	es decir, si se crea una clase que defina un comportamiento específico para
+!!	una de estas propiedades, y a continuación se crea un objeto como instancia
+!!	de esta clase de forma que también él defina su propia versión de alguna de
+!!	estas propiedades no aditivas, las rutinas del objeto "sobreescribirán"
+!!	completamente aquellas de la clase. Dicho de otra manera, si el objeto
+!!	define las suyas propias, las rutinas 'before' y 'react_before' de la clase
+!!	de la que es instancia NO SERÁN INVOCADAS en ningún momento. Sin embargo,
+!!	se puede hacer una llamada explícita a la rutina de la clase desde la
+!!	rutina del objeto. A continuación se especifica cómo un objeto 'objectName'
+!!	invocaría a la rutina 'react_before' de una superclase 'className' de su
+!!	jerarquía de clases:
+!!
+!!		objectName.className::react_before();
+!!
+!!------------------------------------------------------------------------------
+
+!!------------------------------------------------------------------------------
+!! Room
+!!------------------------------------------------------------------------------
+!! Representa un objeto localidad dentro del modelo de mundo.
+!!
+!!	@version 2021/04/18
+!!------------------------------------------------------------------------------
+Class Room
+	has
+		light,
+;
+
+!!------------------------------------------------------------------------------
+!! Room:Indoors
+!!------------------------------------------------------------------------------
+!!	@version 2021/04/18
+!!------------------------------------------------------------------------------
+Class Indoors
+	class Room,
+;
+
+!!------------------------------------------------------------------------------
+!! Room:Outdoors
+!!------------------------------------------------------------------------------
+!!	@version 2021/04/18
+!!------------------------------------------------------------------------------
+Class Outdoors
+	class Room,
+;
+
+!!------------------------------------------------------------------------------
+!! Candy
+!!------------------------------------------------------------------------------
+!!	@version 2021/04/18
+!!------------------------------------------------------------------------------
+Class Candy
+	has
+		edible ~open openable,
+	with
+		after [;
+			Open:
+				print "Le quitas el envoltorio ", (al) self, ".";
+				new_line;
+				return true;
+		],
+		before [;
+			Close:
+				if (self hasnt open) {
+					print "Ya estaba envuelt", (o) self, ".";
+					new_line;
+					return true;
+				} else {
+					print "Has perdido el envoltorio así que ya no puedes volver a ponérselo.";
+					new_line;
+					return true;
+				}
+			Eat:
+				if (self hasnt open) {
+					print "Antes tienes que abrirlo. No te lo vas a comer con el envoltorio.";
+					new_line;
+					return true;
+				}
+			Open:
+				if (self has open) {
+					print "Ya has desenvuelto ", (the) self, ".";
+					new_line;
+					return true;
+				}
+		],
+;
