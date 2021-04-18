@@ -1,11 +1,12 @@
 #! /bin/sh
 
 #===============================================================================
-# Script para compilar y ejecutar relatos interactivos programados en Inform 6.
+# Script Linux shell para compilar relatos interactivos programados en Inform 6.
 # Herramientas utilizadas:
 #
+#	<>	python: Intérprete Python
 #	<>	inform: Compilador Inform 6
-#	<>	game2js: Convierte ficheros Z-code/Glulx a JavaScript
+#	<>	game2js.py: Script python para convertir ficheros Z-code/Glulx a JS
 #-------------------------------------------------------------------------------
 
 inform_compiler=./inform
@@ -31,7 +32,7 @@ echo "============================================="
 echo "COMPILANDO PARA GLULX…"
 echo "---------------------------------------------"
 $inform_compiler +include_path=$inform_path -G $gameFile.inf $gameFile.ulx
-python $game2js --giload $gameFile.ulx > ../stories/$gameFile.ulx.js
+python $game2js --giload $gameFile.ulx > ../web/stories/$gameFile.ulx.js
 rm $gameFile.ulx
 
 exit 0;
