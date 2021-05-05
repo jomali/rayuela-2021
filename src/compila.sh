@@ -9,10 +9,12 @@
 #	<>	game2js.py: Script python para convertir ficheros Z-code/Glulx a JS
 #-------------------------------------------------------------------------------
 
-inform_compiler=./inform
+inform_compiler=inform
 game2js=./game2js.py
 
-inform_path=./libs
+libs_path=./libs
+extensions_path=./libs
+inform_path=$libs_path,$extensions_path
 
 #-------------------------------------------------------------------------------
 
